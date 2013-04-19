@@ -24,4 +24,9 @@ MedialOperationsServer::Application.configure do
 
   # Debug mode disables concatenation and preprocessing of assets.
   config.assets.debug = true
+
+  console do
+    require "pry"
+    config.console = Pry
+  end
 end

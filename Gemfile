@@ -4,6 +4,7 @@ ruby '2.1.0'
 gem 'rails', '4.0.0.beta1'
 
 gem 'pg'
+gem 'pry-rails'
 
 group :assets do
   gem 'sass-rails',   '~> 4.0.0.beta1'
