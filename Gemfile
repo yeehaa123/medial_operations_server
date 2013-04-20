@@ -5,7 +5,7 @@ gem 'rails', '4.0.0.beta1'
 
 gem 'pg'
 gem 'pry-rails'
-gem 'thin'
+gem 'puma'
 gem 'haml-rails'
 
 group :assets do
