@@ -8,7 +8,7 @@ class SlideTest < ActiveSupport::TestCase
 
     it "should not be valid without a title" do
       slide.title = nil
-      assert !slide.valid?, "slide has not title"
+      slide.wont_be :valid?, "slide has not title"
     end
 
     it "should not be valid without an order" do
