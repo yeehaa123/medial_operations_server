@@ -8,24 +8,24 @@ class SlideTest < ActiveSupport::TestCase
 
     it "should not be valid without a title" do
       slide.title = nil
-      slide.wont_be :valid?, "slide has not title"
+      slide.wont_be :valid?
     end
 
     it "should not be valid without an order" do
       slide.order = nil
-      assert !slide.valid?, "slide has no order"
+      slide.wont_be :valid?
     end
     
     it "should have a integer as order" do
       slide.order = "bla"
-      assert !slide.valid?, "slide has a non-numerical order"
+      slide.wont_be :valid?
     end
     
     it "should have a unique order" do
       slide.save
       slide2 = build(:slide)
       slide2.order = slide.order
-      assert !slide2.valid?, "slide has no unique order"
+      slide2.wont_be :valid?
     end
 
   end

@@ -6,6 +6,7 @@ gem 'rails', '4.0.0.beta1'
 gem 'pg'
 gem 'pry-rails'
 gem 'thin'
+gem 'haml-rails'
 
 group :assets do
   gem 'sass-rails',   '~> 4.0.0.beta1'
@@ -16,6 +17,7 @@ end
 group :development, :test do
   gem 'factory_girl_rails'
   gem 'minitest-spec-rails'
+  gem 'turn'
   gem 'mocha', :require => 'mocha/api'
 end
 
