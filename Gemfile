@@ -7,6 +7,7 @@ gem 'pg'
 gem 'pry-rails'
 gem 'puma'
 gem 'haml-rails'
+gem 'redis'
 
 group :assets do
   gem 'sass-rails',   '~> 4.0.0.beta1'

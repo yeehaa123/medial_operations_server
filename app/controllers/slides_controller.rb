@@ -1,24 +1,31 @@
 class SlidesController < ApplicationController
   include ActionController::Live
-
-  respond_to :json 
+  skip_before_action :verify_authenticity_token
 
   def index
-    respond_with Slide.all
+     render json: Slide.all
   end
 
   def create
-    params.require(:slide).permit!
-    respond_with Slide.create(params[:slide])
+    attributes = params.require(:slide).permit!
+    @slide = Slide.create(attributes)
+    if @slide.persisted?
+      $redis.publish('messages.create', @slide.to_json)
+    end
+    render nothing: true
   end
 
   def events
     response.headers['Content-Type'] = 'text/event-stream'
-    10.times do |n|
-      response.stream.write "#{n}...\n\n"
-      sleep 2
+    uri = URI.parse(ENV["REDISCLOUD_URL"])
+    redis = Redis.new(:host => uri.host, :port => uri.port, :password => uri.password)
+    redis.subscribe('messages.create') do |on|
+      on.message do |event, data|
+        response.stream.write("data: #{data}\n\n")
+      end
     end
   ensure
+    redis.quit
     response.stream.close
   end
 end

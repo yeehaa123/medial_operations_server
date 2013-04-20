@@ -15,3 +15,6 @@
 /log/*.log
 /tmp
 .zeus.sock
+.env
+zeus.json
+custom_plan.rb

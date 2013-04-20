@@ -19,17 +19,24 @@ class SlidesControllerTest < ActionController::TestCase
       @request.env['HTTP_ACCEPT'] = "application/json"
     end
 
-    it "should not create post without all paramaters" do
-      assert_difference 'Slide.count', 0 do
-        post :create, slide: { title: "Bla" }
-      end
-    end
-
-    it "should create post with all paramaters" do
+    it "should create post" do
+      $redis.expects(:publish).once
       assert_difference 'Slide.count', 1 do
         post :create, slide: { title: "Test", order: 1 }
       end
     end
+
+    it "should not create post" do
+      $redis.expects(:publish).never
+      assert_difference 'Slide.count', 0 do
+        post :create, slide: { title: "Bla" }
+      end
+    end
+  end
+
+  describe "#events" do
+    it "should be succesfull" do
+      response.must_be :success?
+    end
   end
 end
-
